@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TrashCollector2.Models;
 
 namespace TrashCollector2.Data
 {
@@ -25,5 +26,7 @@ namespace TrashCollector2.Data
                 }
                 );
         }
+        public DbSet<TrashCollector2.Models.Customer> Customer { get; set; }
+        public DbSet<TrashCollector2.Models.Employee> Employee { get; set; }
     }
 }
