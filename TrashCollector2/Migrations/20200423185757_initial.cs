@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TrashCollector2.Data.Migrations
+namespace TrashCollector2.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,7 +51,7 @@ namespace TrashCollector2.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +72,7 @@ namespace TrashCollector2.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -93,8 +92,8 @@ namespace TrashCollector2.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +137,8 @@ namespace TrashCollector2.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -152,6 +151,74 @@ namespace TrashCollector2.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    StreetName = table.Column<string>(nullable: true),
+                    StreetNumber = table.Column<int>(nullable: false),
+                    CityName = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Zipcode = table.Column<int>(nullable: false),
+                    PickupDay = table.Column<string>(nullable: true),
+                    OneTimePickup = table.Column<DateTime>(nullable: false),
+                    TempSuspendStart = table.Column<DateTime>(nullable: false),
+                    TempSuspendEnd = table.Column<DateTime>(nullable: false),
+                    AmountOwed = table.Column<double>(nullable: false),
+                    PickupConfirmed = table.Column<bool>(nullable: false),
+                    IdentityUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customer_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employee",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeNumber = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    EmployeeZipCode = table.Column<int>(nullable: false),
+                    IdentityEmployeeId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employee", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employee_AspNetUsers_IdentityEmployeeId",
+                        column: x => x.IdentityEmployeeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "0470c734-f330-4c24-b6f7-a6731c70a539", "37b11827-dc6f-4e29-b663-9ae91d5ae31b", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "0479c734-f330-4c24-b6f7-a6731c70a539", "37b11827-dc6f-4e29-b663-9ae91d5ae31c", "Customer", "CUSTOMER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "0477c734-f330-4c24-b6f7-a6731c70a539", "37b11827-dc6f-4e29-b663-9ae91d5ae31e", "Employee", "EMPLOYEE" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -191,6 +258,16 @@ namespace TrashCollector2.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_IdentityUserId",
+                table: "Customer",
+                column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employee_IdentityEmployeeId",
+                table: "Employee",
+                column: "IdentityEmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -209,6 +286,12 @@ namespace TrashCollector2.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Customer");
+
+            migrationBuilder.DropTable(
+                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

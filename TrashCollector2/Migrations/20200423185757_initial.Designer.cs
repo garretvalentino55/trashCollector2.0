@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector2.Data;
 
-namespace TrashCollector2.Data.Migrations
+namespace TrashCollector2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200423185757_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +54,20 @@ namespace TrashCollector2.Data.Migrations
                             ConcurrencyStamp = "37b11827-dc6f-4e29-b663-9ae91d5ae31b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "0479c734-f330-4c24-b6f7-a6731c70a539",
+                            ConcurrencyStamp = "37b11827-dc6f-4e29-b663-9ae91d5ae31c",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = "0477c734-f330-4c24-b6f7-a6731c70a539",
+                            ConcurrencyStamp = "37b11827-dc6f-4e29-b663-9ae91d5ae31e",
+                            Name = "Employee",
+                            NormalizedName = "EMPLOYEE"
                         });
                 });
 
