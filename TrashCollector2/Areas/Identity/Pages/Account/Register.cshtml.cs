@@ -114,11 +114,11 @@ namespace TrashCollector2.Areas.Identity.Pages.Account
                         await _signInManager.SignInAsync(user, isPersistent: false);
                        if (Input.Role == "Customer")
                         {
-                            return RedirectToAction("Create", "Customer");
+                            return RedirectToAction("Create", "Customers");
                         }
                        else if (Input.Role == "Employee")
                         {
-                            return RedirectToAction("Create", "Employee");
+                            return RedirectToAction("Create", "Employees");
                         }
                     }
                 }
