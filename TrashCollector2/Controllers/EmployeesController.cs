@@ -49,7 +49,9 @@ namespace TrashCollector2.Controllers
         public IActionResult Create()
         {
             ViewData["IdentityEmployeeId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            Employee employee = new Employee();
+            _context.SaveChanges();
+            return View(employee);
         }
 
         // POST: Employees/Create
@@ -66,6 +68,7 @@ namespace TrashCollector2.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityEmployeeId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityEmployeeId);
+            _context.SaveChanges();
             return View(employee);
         }
 
@@ -83,6 +86,7 @@ namespace TrashCollector2.Controllers
                 return NotFound();
             }
             ViewData["IdentityEmployeeId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityEmployeeId);
+            _context.SaveChanges();
             return View(employee);
         }
 
@@ -119,6 +123,7 @@ namespace TrashCollector2.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityEmployeeId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityEmployeeId);
+            _context.SaveChanges();
             return View(employee);
         }
 

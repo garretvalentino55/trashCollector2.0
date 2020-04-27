@@ -49,7 +49,9 @@ namespace TrashCollector2.Controllers
         public IActionResult Create()
         {
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            Customer customer = new Customer();
+            _context.SaveChanges();
+            return View(customer);
         }
 
         // POST: Customers/Create
@@ -66,6 +68,7 @@ namespace TrashCollector2.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            _context.SaveChanges();
             return View(customer);
         }
 
@@ -83,6 +86,7 @@ namespace TrashCollector2.Controllers
                 return NotFound();
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            _context.SaveChanges();
             return View(customer);
         }
 
@@ -119,6 +123,7 @@ namespace TrashCollector2.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            _context.SaveChanges();
             return View(customer);
         }
 
