@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -59,10 +60,13 @@ namespace TrashCollector2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeNumber,Name,EmployeeZipCode,IdentityEmployeeId")] Employee employee)
+        public async Task<IActionResult> Create(Employee employee )
         {
             if (ModelState.IsValid)
             {
+                var employeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityEmployeeId = employeeId;
+
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
