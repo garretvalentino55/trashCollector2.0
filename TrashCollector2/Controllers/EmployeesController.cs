@@ -86,7 +86,6 @@ namespace TrashCollector2.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdentityEmployeeId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityEmployeeId);
             _context.SaveChanges();
             return View(employee);
         }

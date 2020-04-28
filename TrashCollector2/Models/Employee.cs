@@ -15,6 +15,8 @@ namespace TrashCollector2.Models
         public int EmployeeNumber { get; set; }
         public string Name { get; set; }
         public int EmployeeZipCode { get; set; }
+        public double AmountOwed { get; set; }
+        public bool PickupConfirmed { get; set; }
 
         [ForeignKey("IdentityEmployee")]
         public string IdentityEmployeeId { get; set; }

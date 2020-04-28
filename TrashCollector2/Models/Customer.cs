@@ -22,8 +22,6 @@ namespace TrashCollector2.Models
         public DateTime OneTimePickup { get; set; }
         public DateTime TempSuspendStart { get; set; }
         public DateTime TempSuspendEnd { get; set; }
-        public double AmountOwed { get; set; }
-        public bool PickupConfirmed { get; set; }
         
 
         [ForeignKey("IdentityUser")]

@@ -69,7 +69,6 @@ namespace TrashCollector2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             _context.SaveChanges();
             return View(customer);
         }
