@@ -49,10 +49,7 @@ namespace TrashCollector2.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["IdentityEmployeeId"] = new SelectList(_context.Users, "Id", "Id");
-            Employee employee = new Employee();
-            _context.SaveChanges();
-            return View(employee);
+            return View();
         }
 
         // POST: Employees/Create
